@@ -1,1 +1,41 @@
-# parse-server-boilerplate
+## Dokku + Let's Encrypt + Parse Server သြင္းနည္း
+
+**၁) ေအာက္ပါ Link တြင္ ေဖာ္ျပထားသည့္အတိုင္း Dokku ကို သြင္းပါ။**
+
+http://dokku.viewdocs.io/dokku/
+
+**၂) App အသစ္ဖန္တီးရန္ ေအာက္ပါ Command ကို ႐ိုက္ပါ။**
+
+    dokku apps:create parse-server-boilerplate
+
+**၃) MongoDB သြင္းရန္ ေအာက္ပါ Command ကို ႐ိုက္ပါ။**
+
+    sudo dokku plugin:install https://github.com/dokku/dokku-mongo.git mongo
+
+**၄) MongoDB Database အသစ္ ဖန္တီးၿပီး၊ App ျဖင့္ ခ်ိတ္ဆက္ရန္ ေအာက္ပါ Command မ်ားကို ႐ိုက္ပါ။**
+
+    dokku mongo:create parse-server-boilerplate-database
+    dokku mongo:link parse-server-boilerplate-database parse-server-boilerplate
+
+**၅) Deploy လုပ္ရန္ ေအာက္ပါ Command မ်ားကို ႐ိုက္ပါ။**
+
+    git remote add dokku dokku@parse-server-boilerplate.com:parse-server-boilerplate
+    git push dokku master
+
+**၆) App ႏွင့္ Domain ခ်ိတ္ဆက္ရန္ ေအာက္ပါ Command ကို ႐ိုက္ၿပီး၊ သက္ဆိုင္ရာ A Record အား သင့္ Server ၏ Public IP သို႔ ညႊန္ျပပါ။**
+
+    dokku domains:add parse-server-boilerplate www.parse-server-boilerplate.com
+
+**၇) Let's Encrypt သြင္းရန္ ေအာက္ပါ Command မ်ားကို ႐ိုက္ပါ။**
+
+    sudo dokku plugin:install https://github.com/dokku/dokku-letsencrypt.git
+    dokku letsencrypt:cron-job --add
+
+**၈) Let's Encrypt ႏွင့္ App ခ်ိတ္ဆက္ရန္ ေအာက္ပါ Command မ်ားကို ႐ိုက္ပါ။**
+
+    dokku config:set --no-restart parse-server-boilerplate DOKKU_LETSENCRYPT_EMAIL=admin@parse-server-boilerplate.com
+    dokku letsencrypt parse-server-boilerplate
+
+---
+
+ေရးသားသူ - [ေက်ာ္စြာသြင္](https://www.facebook.com/profile.php?id=100005753280868)

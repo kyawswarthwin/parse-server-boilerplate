@@ -1,0 +1,18 @@
+{
+  "name": "parse-server-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Kyaw Swar Thwin",
+  "license": "ISC",
+  "dependencies": {
+    "compression": "^1.7.2",
+    "express": "^4.16.2",
+    "parse-server": "^2.7.2",
+    "response-time": "^2.3.2"
+  }
+}

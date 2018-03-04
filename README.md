@@ -2,6 +2,7 @@
 
 **၁) ေအာက္ပါ Command ကို ႐ိုက္ၿပီး၊ ဒီ [Link](http://dokku.viewdocs.io/dokku/) တြင္ ေဖာ္ျပထားသည့္အတိုင္း Dokku ကို သြင္းပါ။**
 
+    sudo add-apt-repository ppa:nginx/stable
     sudo apt-get update
 
 **၂) App အသစ္ဖန္တီးရန္ ေအာက္ပါ Command ကို ႐ိုက္ပါ။**

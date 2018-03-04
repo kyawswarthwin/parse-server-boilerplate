@@ -9,6 +9,8 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 1337;
 
+const appName = 'Parse Server Boilerplate';
+
 const mountPath = process.env.PARSE_MOUNT || '/parse';
 const api = new ParseServer({
   appId: process.env.APP_ID || 'myAppId',
@@ -30,7 +32,7 @@ const api = new ParseServer({
   },
   // Email Verification & Password Reset
   verifyUserEmails: true,
-  appName: 'Parse Server Boilerplate',
+  appName: appName,
   publicServerURL: process.env.SERVER_URL || `http://localhost:${port}${mountPath}`,
   emailAdapter: {
     module: '@parse/simple-mailgun-adapter',

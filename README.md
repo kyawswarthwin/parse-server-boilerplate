@@ -29,7 +29,7 @@
     git remote add dokku dokku@parse-server-boilerplate.com:parse-server-boilerplate
     git push dokku master
 
-**၇) App ႏွင့္ Domain ခ်ိတ္ဆက္ရန္ ေအာက္ပါ Command ကို ႐ိုက္ၿပီး၊ သက္ဆိုင္ရာ A Record အား သင့္ Server ၏ Public IP သို႔ ညႊန္ျပပါ။**
+**၇) App ႏွင့္ Domain ခ်ိတ္ဆက္ရန္ ေအာက္ပါ Command ကို ႐ိုက္ၿပီး၊ သက္ဆိုင္ရာ A Record မ်ားအား သင့္ Server ၏ Public IP သို႔ ညႊန္ျပပါ။**
 
     dokku domains:add parse-server-boilerplate parse-server-boilerplate.com www.parse-server-boilerplate.com
 

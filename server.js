@@ -14,6 +14,20 @@ const api = new ParseServer({
   appId: process.env.APP_ID || 'myAppId',
   masterKey: process.env.MASTER_KEY || 'myMasterKey',
   databaseURI: process.env.MONGO_URL || 'mongodb://localhost:27017/dev',
+  // Cloud Code
+  serverURL: process.env.SERVER_URL || `http://localhost:${port}${mountPath}`,
+  cloud: path.join(__dirname, 'cloud/main.js'),
+  // Live Queries
+  liveQuery: {
+    classNames: []
+  },
+  // Storage
+  filesAdapter: {
+    module: '@parse/s3-files-adapter',
+    options: {
+      directAccess: true
+    }
+  },
   // Email Verification & Password Reset
   verifyUserEmails: true,
   appName: 'Parse Server Boilerplate',
@@ -37,14 +51,7 @@ const api = new ParseServer({
     threshold: 3,
     duration: 5
   },
-  allowClientClassCreation: process.env.NODE_ENV === 'production' ? false : true,
-  // Cloud Code
-  serverURL: process.env.SERVER_URL || `http://localhost:${port}${mountPath}`,
-  cloud: path.join(__dirname, 'cloud/main.js'),
-  // Live Queries
-  liveQuery: {
-    classNames: []
-  }
+  allowClientClassCreation: process.env.NODE_ENV === 'production' ? false : true
 });
 
 app.use(responseTime());

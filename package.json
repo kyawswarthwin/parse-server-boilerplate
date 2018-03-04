@@ -8,7 +8,7 @@
   },
   "keywords": [],
   "author": "Kyaw Swar Thwin",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "compression": "^1.7.2",
     "express": "^4.16.2",

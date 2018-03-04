@@ -37,7 +37,9 @@ const api = new ParseServer({
     options: {
       apiKey: process.env.MAILGUN_API_KEY,
       domain: process.env.MAILGUN_DOMAIN,
-      fromAddress: 'no-reply@parse-server-boilerplate.com'
+      fromAddress: `no-reply@${process.env.MAILGUN_DOMAIN.split('.')
+        .splice(1)
+        .join('.')}`
     }
   },
   // Security

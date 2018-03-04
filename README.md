@@ -24,7 +24,7 @@ http://dokku.viewdocs.io/dokku/
 
 **၆) App ႏွင့္ Domain ခ်ိတ္ဆက္ရန္ ေအာက္ပါ Command ကို ႐ိုက္ၿပီး၊ သက္ဆိုင္ရာ A Record အား သင့္ Server ၏ Public IP သို႔ ညႊန္ျပပါ။**
 
-    dokku domains:add parse-server-boilerplate www.parse-server-boilerplate.com
+    dokku domains:add parse-server-boilerplate parse-server-boilerplate.com www.parse-server-boilerplate.com
 
 **၇) Let's Encrypt သြင္းရန္ ေအာက္ပါ Command မ်ားကို ႐ိုက္ပါ။**
 
@@ -35,6 +35,13 @@ http://dokku.viewdocs.io/dokku/
 
     dokku config:set --no-restart parse-server-boilerplate DOKKU_LETSENCRYPT_EMAIL=admin@parse-server-boilerplate.com
     dokku letsencrypt parse-server-boilerplate
+
+**၉) Environment Variable မ်ား သတ္မွတ္ရန္ ေအာက္ပါ Command မ်ားကို ႐ိုက္ပါ။**
+
+    dokku config:set parse-server-boilerplate APP_ID=your_app_id MASTER_KEY=your_master_key SERVER_URL=https://www.parse-server-boilerplate.com/parse
+    dokku config:set parse-server-boilerplate S3_BUCKET=parse-server-boilerplate AWS_ACCESS_KEY_ID=your_aws_access_key_id AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
+    dokku config:set parse-server-boilerplate MAILGUN_API_KEY=your_mailgun_api_key MAILGUN_DOMAIN=mg.parse-server-boilerplate.com
+    dokku ps:restart parse-server-boilerplate
 
 ---
 

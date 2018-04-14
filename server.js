@@ -3,7 +3,7 @@ const http = require('http');
 const express = require('express');
 const responseTime = require('response-time');
 const compression = require('compression');
-const ParseServer = require('parse-server').ParseServer;
+const { ParseServer } = require('parse-server');
 const path = require('path');
 
 const app = express();

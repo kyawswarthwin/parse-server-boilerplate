@@ -2,11 +2,8 @@
 const path = require('path');
 const fs = require('fs');
 
-loadCloudFunctions();
-loadCloudJobs();
-loadTriggers();
-
-function loadCloudFunctions() {
+// Cloud Functions
+(function() {
   try {
     fs.readdirSync(path.join(__dirname, 'functions')).forEach(file => {
       if (path.extname(file) === '.js') {
@@ -19,9 +16,10 @@ function loadCloudFunctions() {
   } catch (error) {
     if (error.code !== 'ENOENT') throw error;
   }
-}
+})();
 
-function loadCloudJobs() {
+// Cloud Jobs
+(function() {
   try {
     fs.readdirSync(path.join(__dirname, 'jobs')).forEach(file => {
       if (path.extname(file) === '.js') {
@@ -34,9 +32,10 @@ function loadCloudJobs() {
   } catch (error) {
     if (error.code !== 'ENOENT') throw error;
   }
-}
+})();
 
-function loadTriggers() {
+// Triggers
+(function() {
   try {
     fs.readdirSync(path.join(__dirname, 'triggers')).forEach(file => {
       if (path.extname(file) === '.js') {
@@ -71,4 +70,4 @@ function loadTriggers() {
   } catch (error) {
     if (error.code !== 'ENOENT') throw error;
   }
-}
+})();

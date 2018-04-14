@@ -4,15 +4,26 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kyawswarthwin/parse-server-boilerplate.git"
+  },
+  "keywords": [
+    "parse-server"
+  ],
   "author": "Kyaw Swar Thwin",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kyawswarthwin/parse-server-boilerplate/issues"
+  },
+  "homepage": "https://github.com/kyawswarthwin/parse-server-boilerplate#readme",
   "dependencies": {
     "compression": "^1.7.2",
-    "express": "^4.16.2",
-    "parse-server": "^2.7.2",
+    "express": "^4.16.3",
+    "parse-server": "^2.7.4",
     "response-time": "^2.3.2"
   }
 }

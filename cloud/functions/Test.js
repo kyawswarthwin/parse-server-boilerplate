@@ -1,7 +1,9 @@
-const Test = require('../../app/models/Test');
-const aa = new Parse.Query(Test);
+'use strict';
 
-aa
+const Test = require('../../app/models/Test');
+
+const query = new Parse.Query(Test);
+query
   .get('gClqe9N3KN')
   .then(data => {
     console.log(data.name);

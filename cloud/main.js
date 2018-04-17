@@ -45,28 +45,8 @@ const fs = require('fs');
       if (path.extname(file) === '.js') {
         const triggers = require(path.join(triggersPath, file));
         Object.keys(triggers).forEach(key => {
-          const className = path.basename(file, '.js');
-          switch (key) {
-            case 'beforeSave':
-              Parse.Cloud.beforeSave(className, triggers[key]);
-              break;
-            case 'afterSave':
-              Parse.Cloud.afterSave(className, triggers[key]);
-              break;
-            case 'beforeDelete':
-              Parse.Cloud.beforeDelete(className, triggers[key]);
-              break;
-            case 'afterDelete':
-              Parse.Cloud.afterDelete(className, triggers[key]);
-              break;
-            case 'beforeFind':
-              Parse.Cloud.beforeFind(className, triggers[key]);
-              break;
-            case 'afterFind':
-              Parse.Cloud.afterFind(className, triggers[key]);
-              break;
-            default:
-              break;
+          if (Parse.Cloud.hasOwnProperty(key)) {
+            Parse.Cloud[key](triggers.className, triggers[key]);
           }
         });
       }

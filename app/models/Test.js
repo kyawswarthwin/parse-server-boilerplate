@@ -1,8 +1,6 @@
 'use strict';
 
-const Model = require('../../database/model');
-
-class Test extends Model {
+class Test extends Parse.Object {
   constructor() {
     super('Test');
   }

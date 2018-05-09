@@ -8,6 +8,8 @@ const cors = require('cors');
 const { ParseServer } = require('parse-server');
 const path = require('path');
 
+require('dotenv').config();
+
 const app = express();
 const port = process.env.PORT || 1337;
 

@@ -4,6 +4,7 @@ const http = require('http');
 const express = require('express');
 const responseTime = require('response-time');
 const compression = require('compression');
+const cors = require('cors');
 const { ParseServer } = require('parse-server');
 const path = require('path');
 
@@ -61,6 +62,7 @@ const api = new ParseServer({
 
 app.use(responseTime());
 app.use(compression());
+app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(mountPath, api);
 

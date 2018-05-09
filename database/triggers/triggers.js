@@ -5,7 +5,7 @@ const fs = require('fs');
 
 try {
   fs.readdirSync(__dirname).forEach(file => {
-    if (path.extname(file) === '.js' && file !== 'triggers.js') {
+    if (path.extname(file).toLowerCase() === '.js' && file !== 'triggers.js') {
       const triggers = require(path.join(__dirname, file));
       Object.keys(triggers).forEach(key => {
         if (Parse.Cloud.hasOwnProperty(key)) {

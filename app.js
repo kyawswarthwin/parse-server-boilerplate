@@ -1,5 +1,6 @@
 'use strict';
 
+require('dotenv').config();
 const http = require('http');
 const express = require('express');
 const responseTime = require('response-time');
@@ -7,8 +8,6 @@ const compression = require('compression');
 const cors = require('cors');
 const { ParseServer } = require('parse-server');
 const path = require('path');
-
-require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 1337;

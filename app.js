@@ -24,7 +24,11 @@ const serverURL = process.env.SERVER_URL || `http://${host}:${port}${mountPath}`
 const api = new ParseServer({
   appId: appId,
   masterKey: masterKey,
-  databaseURI: process.env.MONGO_URL || process.env.DATABASE_URL || 'mongodb://localhost:27017/dev',
+  databaseURI:
+    process.env.MONGODB_URI ||
+    process.env.MONGO_URL ||
+    process.env.DATABASE_URL ||
+    'mongodb://localhost:27017/dev',
   // Cloud Code
   serverURL: serverURL,
   cloud: path.join(__dirname, 'cloud/main.js'),

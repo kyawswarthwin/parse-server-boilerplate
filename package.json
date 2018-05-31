@@ -25,6 +25,7 @@
     "cors": "^2.8.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
+    "parse-dashboard": "^1.2.0",
     "parse-server": "^2.7.4",
     "response-time": "^2.3.2",
     "url-join": "^4.0.0"

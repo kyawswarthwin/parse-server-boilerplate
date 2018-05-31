@@ -76,6 +76,7 @@ const dashboard = new ParseDashboard({
       appName: appName
     }
   ],
+  trustProxy: 1,
   users: [
     {
       user: process.env.PARSE_DASHBOARD_USER_ID || 'admin',

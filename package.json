@@ -21,12 +21,12 @@
   },
   "homepage": "https://github.com/kyawswarthwin/parse-server-boilerplate#readme",
   "dependencies": {
-    "compression": "^1.7.2",
+    "compression": "^1.7.3",
     "cors": "^2.8.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "parse-dashboard": "^1.2.0",
-    "parse-server": "^2.7.4",
+    "parse-server": "^2.8.4",
     "response-time": "^2.3.2",
     "url-join": "^4.0.0"
   }

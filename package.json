@@ -27,6 +27,7 @@
     "express": "^4.16.4",
     "parse-dashboard": "^1.2.0",
     "parse-server": "^3.1.3",
+    "parse-server-addon-cloud-class": "^1.0.13",
     "response-time": "^2.3.2",
     "url-join": "^4.0.0"
   }

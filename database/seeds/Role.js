@@ -8,6 +8,10 @@ module.exports = {
       permissions: {
         '*': {
           read: true
+        },
+        'role:administrator': {
+          read: true,
+          write: true
         }
       }
     },
@@ -16,6 +20,10 @@ module.exports = {
       permissions: {
         '*': {
           read: true
+        },
+        'role:administrator': {
+          read: true,
+          write: true
         }
       }
     }

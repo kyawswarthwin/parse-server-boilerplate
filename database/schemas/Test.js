@@ -3,7 +3,9 @@
 module.exports = {
   className: 'Test',
   fields: {
-    name: { type: 'String' }
+    name: {
+      type: 'String'
+    }
   },
   indexes: {}
 };

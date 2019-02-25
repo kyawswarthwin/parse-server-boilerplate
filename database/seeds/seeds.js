@@ -11,13 +11,13 @@ try {
       const count = await query.count();
       if (count === 0) {
         const Object = Parse.Object.extend(seed.className);
-        seed.properties.forEach(async attribute => {
+        seed.properties.forEach(async property => {
           const object = new Object();
-          if (attribute.permissions) {
-            object.setACL(new Parse.ACL(attribute.permissions));
-            delete attribute.permissions;
+          if (property.permissions) {
+            object.setACL(new Parse.ACL(property.permissions));
+            delete property.permissions;
           }
-          await object.save(attribute);
+          await object.save(property);
         });
       }
     }

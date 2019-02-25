@@ -2,7 +2,7 @@
 
 module.exports = {
   className: '_Role',
-  attributes: [
+  properties: [
     {
       name: 'administrator',
       permissions: {

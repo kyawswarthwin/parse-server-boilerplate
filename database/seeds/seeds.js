@@ -11,7 +11,7 @@ try {
       const count = await query.count();
       if (count === 0) {
         const Object = Parse.Object.extend(seed.className);
-        seed.attributes.forEach(async attribute => {
+        seed.properties.forEach(async attribute => {
           const object = new Object();
           if (attribute.permissions) {
             object.setACL(new Parse.ACL(attribute.permissions));

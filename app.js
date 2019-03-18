@@ -71,23 +71,27 @@ const api = new ParseServer({
   allowClientClassCreation: process.env.NODE_ENV === 'production' ? false : true
 });
 
-const dashboard = new ParseDashboard({
-  apps: [
-    {
-      appId: appId,
-      masterKey: masterKey,
-      serverURL: serverURL,
-      appName: appName
-    }
-  ],
-  trustProxy: 1,
-  users: [
-    {
-      user: process.env.PARSE_DASHBOARD_USER_ID || 'admin',
-      pass: process.env.PARSE_DASHBOARD_USER_PASSWORD || 'admin'
-    }
-  ]
-});
+const dashboard = new ParseDashboard(
+  {
+    apps: [
+      {
+        appId: appId,
+        masterKey: masterKey,
+        serverURL: serverURL,
+        appName: appName
+      }
+    ],
+    users: [
+      {
+        user: process.env.PARSE_DASHBOARD_USER_ID || 'admin',
+        pass: process.env.PARSE_DASHBOARD_USER_PASSWORD || 'admin'
+      }
+    ]
+  },
+  {
+    allowInsecureHTTP: true
+  }
+);
 
 app.use(responseTime());
 app.use(compression());

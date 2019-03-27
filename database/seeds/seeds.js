@@ -17,7 +17,9 @@ try {
             object.setACL(new Parse.ACL(property.permissions));
             delete property.permissions;
           }
-          await object.save(property);
+          await object.save(property, {
+            useMasterKey: true
+          });
         });
       }
     }

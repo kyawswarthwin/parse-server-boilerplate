@@ -1,32 +1,32 @@
-## Dokku + Let's Encrypt + Parse Server သြင္းနည္း
+## Dokku + Let's Encrypt + Parse Server သွင်းနည်း
 
-**၁) ေအာက္ပါ Command မ်ားကို ႐ိုက္ၿပီး၊ ဤ [Link](http://dokku.viewdocs.io/dokku/) တြင္ ေဖာ္ျပထားသည့္အတိုင္း Dokku ကို သြင္းပါ။**
+**၁) အောက်ပါ Command များကို ရိုက်ပြီး၊ ဤ [Link](http://dokku.viewdocs.io/dokku/) တွင် ဖော်ပြထားသည့်အတိုင်း Dokku ကို သွင်းပါ။**
 
 ```sh
 $ sudo add-apt-repository ppa:nginx/stable
 $ sudo apt-get update
 ```
 
-**၂) App အသစ္ဖန္တီးရန္ ေအာက္ပါ Command ကို ႐ိုက္ပါ။**
+**၂) App အသစ်ဖန်တီးရန် အောက်ပါ Command ကို ရိုက်ပါ။**
 
 ```sh
 $ dokku apps:create parse-server-boilerplate
 ```
 
-**၃) MongoDB သြင္းရန္ ေအာက္ပါ Command ကို ႐ိုက္ပါ။**
+**၃) MongoDB သွင်းရန် အောက်ပါ Command ကို ရိုက်ပါ။**
 
 ```sh
 $ sudo dokku plugin:install https://github.com/dokku/dokku-mongo.git mongo
 ```
 
-**၄) MongoDB Database အသစ္ ဖန္တီးၿပီး၊ App ျဖင့္ ခ်ိတ္ဆက္ရန္ ေအာက္ပါ Command မ်ားကို ႐ိုက္ပါ။**
+**၄) MongoDB Database အသစ် ဖန်တီးပြီး၊ App ဖြင့် ချိတ်ဆက်ရန် အောက်ပါ Command များကို ရိုက်ပါ။**
 
 ```sh
 $ dokku mongo:create parse-server-boilerplate-database
 $ dokku mongo:link parse-server-boilerplate-database parse-server-boilerplate
 ```
 
-**၅) Environment Variable မ်ား သတ္မွတ္ရန္ ေအာက္ပါ Command မ်ားကို ႐ိုက္ပါ။**
+**၅) Environment Variable များ သတ်မှတ်ရန် အောက်ပါ Command များကို ရိုက်ပါ။**
 
 ```sh
 $ dokku config:set parse-server-boilerplate APP_ID=your_app_id MASTER_KEY=your_master_key SERVER_URL=https://www.parse-server-boilerplate.com/parse
@@ -34,27 +34,27 @@ $ dokku config:set parse-server-boilerplate S3_BUCKET=parse-server-boilerplate A
 $ dokku config:set parse-server-boilerplate MAILGUN_API_KEY=your_mailgun_api_key MAILGUN_DOMAIN=mg.parse-server-boilerplate.com
 ```
 
-**၆) Deploy လုပ္ရန္ ေအာက္ပါ Command မ်ားကို ႐ိုက္ပါ။**
+**၆) Deploy လုပ်ရန် အောက်ပါ Command များကို ရိုက်ပါ။**
 
 ```sh
 $ git remote add dokku dokku@parse-server-boilerplate.com:parse-server-boilerplate
 $ git push dokku master
 ```
 
-**၇) App ႏွင့္ Domain ခ်ိတ္ဆက္ရန္ ေအာက္ပါ Command ကို ႐ိုက္ၿပီး၊ သက္ဆိုင္ရာ A Record မ်ားအား သင့္ Server ၏ Public IP သို႔ ညႊန္ျပပါ။**
+**၇) App နှင့် Domain ချိတ်ဆက်ရန် အောက်ပါ Command ကို ရိုက်ပြီး၊ သက်ဆိုင်ရာ A Record များအား သင့် Server ၏ Public IP သို့ ညွှန်ပြပါ။**
 
 ```sh
 $ dokku domains:add parse-server-boilerplate parse-server-boilerplate.com www.parse-server-boilerplate.com
 ```
 
-**၈) Let's Encrypt သြင္းရန္ ေအာက္ပါ Command မ်ားကို ႐ိုက္ပါ။**
+**၈) Let's Encrypt သွင်းရန် အောက်ပါ Command များကို ရိုက်ပါ။**
 
 ```sh
 $ sudo dokku plugin:install https://github.com/dokku/dokku-letsencrypt.git
 $ dokku letsencrypt:cron-job --add
 ```
 
-**၉) Let's Encrypt ႏွင့္ App ခ်ိတ္ဆက္ရန္ ေအာက္ပါ Command မ်ားကို ႐ိုက္ပါ။**
+**၉) Let's Encrypt နှင့် App ချိတ်ဆက်ရန် အောက်ပါ Command များကို ရိုက်ပါ။**
 
 ```sh
 $ dokku config:set --no-restart parse-server-boilerplate DOKKU_LETSENCRYPT_EMAIL=admin@parse-server-boilerplate.com
@@ -63,4 +63,4 @@ $ dokku letsencrypt parse-server-boilerplate
 
 ---
 
-ေရးသားသူ - [ေက်ာ္စြာသြင္](https://www.facebook.com/profile.php?id=100005753280868)
+ရေးသားသူ - [ကျော်စွာသွင်](https://www.facebook.com/profile.php?id=100005753280868)

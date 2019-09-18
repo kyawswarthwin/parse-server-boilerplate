@@ -28,8 +28,8 @@ const api = new ParseServer({
   // filesAdapter: {
   //   module: '@parse/s3-files-adapter',
   //   options: {
-  //     directAccess: true
-  //   }
+  //     directAccess: true,
+  //   },
   // },
   // // Email Verification & Password Reset
   // verifyUserEmails: true,
@@ -42,19 +42,19 @@ const api = new ParseServer({
   //     domain: process.env.MAILGUN_DOMAIN,
   //     fromAddress: `no-reply@${process.env.MAILGUN_DOMAIN.split('.')
   //       .splice(1)
-  //       .join('.')}`
-  //   }
+  //       .join('.')}`,
+  //   },
   // },
   // // Security
   // passwordPolicy: {
   //   validatorPattern: /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]).{6,}$/,
   //   doNotAllowUsername: true,
   //   maxPasswordHistory: 5,
-  //   resetTokenValidityDuration: 24 * 60 * 60
+  //   resetTokenValidityDuration: 24 * 60 * 60,
   // },
   // accountLockout: {
   //   threshold: 3,
-  //   duration: 5
+  //   duration: 5,
   // },
   allowClientClassCreation: process.env.NODE_ENV === 'production' ? false : true,
 });

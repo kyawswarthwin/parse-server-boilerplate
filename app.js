@@ -10,6 +10,7 @@ const { ParseServer } = require('parse-server');
 const ParseDashboard = require('parse-dashboard');
 const path = require('path');
 const constants = require('./config/constants');
+const routes = require('./routes');
 
 const app = express();
 
@@ -85,6 +86,7 @@ app.use(responseTime());
 app.use(compression());
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/', routes);
 app.use(constants.PARSE_MOUNT, api);
 app.use('/dashboard', dashboard);
 

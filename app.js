@@ -9,32 +9,20 @@ const cors = require('cors');
 const { ParseServer } = require('parse-server');
 const ParseDashboard = require('parse-dashboard');
 const path = require('path');
+const constants = require('./config/constants');
 
 const app = express();
 
-const host = process.env.HOST || 'localhost';
-const port = process.env.PORT || 1337;
-const mountPath = process.env.PARSE_MOUNT || '/parse';
-
-const appName = 'Parse Server Boilerplate';
-const appId = process.env.APP_ID || 'myAppId';
-const masterKey = process.env.MASTER_KEY || 'myMasterKey';
-const serverURL = process.env.SERVER_URL || `http://${host}:${port}${mountPath}`;
-
 const api = new ParseServer({
-  appId: appId,
-  masterKey: masterKey,
-  databaseURI:
-    process.env.MONGODB_URI ||
-    process.env.MONGO_URL ||
-    process.env.DATABASE_URL ||
-    'mongodb://localhost:27017/dev',
+  appId: constants.APP_ID,
+  masterKey: constants.MASTER_KEY,
+  databaseURI: constants.DATABASE_URI,
   // Cloud Code
-  serverURL: serverURL,
+  serverURL: constants.SERVER_URL,
   cloud: path.join(__dirname, 'cloud/main.js'),
   // Live Queries
   liveQuery: {
-    classNames: []
+    classNames: [],
   },
   // // Storage
   // filesAdapter: {
@@ -45,8 +33,8 @@ const api = new ParseServer({
   // },
   // // Email Verification & Password Reset
   // verifyUserEmails: true,
-  // appName: appName,
-  // publicServerURL: serverURL,
+  // appName: constants.APP_NAME,
+  // publicServerURL: constants.SERVER_URL,
   // emailAdapter: {
   //   module: '@parse/simple-mailgun-adapter',
   //   options: {
@@ -68,40 +56,40 @@ const api = new ParseServer({
   //   threshold: 3,
   //   duration: 5
   // },
-  allowClientClassCreation: process.env.NODE_ENV === 'production' ? false : true
+  allowClientClassCreation: process.env.NODE_ENV === 'production' ? false : true,
 });
 
 const dashboard = new ParseDashboard(
   {
     apps: [
       {
-        appId: appId,
-        masterKey: masterKey,
-        serverURL: serverURL,
-        appName: appName
-      }
+        appId: constants.APP_ID,
+        masterKey: constants.MASTER_KEY,
+        serverURL: constants.SERVER_URL,
+        appName: constants.APP_NAME,
+      },
     ],
     users: [
       {
-        user: process.env.PARSE_DASHBOARD_USER_ID || 'admin',
-        pass: process.env.PARSE_DASHBOARD_USER_PASSWORD || 'admin'
-      }
-    ]
+        user: constants.PARSE_DASHBOARD_USER_ID,
+        pass: constants.PARSE_DASHBOARD_USER_PASSWORD,
+      },
+    ],
   },
   {
-    allowInsecureHTTP: true
-  }
+    allowInsecureHTTP: true,
+  },
 );
 
 app.use(responseTime());
 app.use(compression());
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(mountPath, api);
+app.use(constants.PARSE_MOUNT, api);
 app.use('/dashboard', dashboard);
 
 const server = http.createServer(app);
-server.listen(port, () => {
-  console.log(`Server running at http://${host}:${port}`);
+server.listen(constants.PORT, () => {
+  console.log(`Server running at http://${constants.HOST}:${constants.PORT}`);
 });
 ParseServer.createLiveQueryServer(server);

@@ -2,13 +2,16 @@
 
 const fs = require('fs');
 const path = require('path');
-const { ParseCloudClass } = require('parse-server-addon-cloud-class');
 
 try {
   fs.readdirSync(__dirname).forEach(file => {
     if (path.extname(file).toLowerCase() === '.js' && file !== 'triggers.js') {
       const triggers = require(path.join(__dirname, file));
-      ParseCloudClass.configureClass(Parse, triggers.className, new ParseCloudClass(triggers));
+      Object.keys(triggers).forEach(key => {
+        if (Parse.Cloud.hasOwnProperty(key)) {
+          Parse.Cloud[key](triggers.className, triggers[key]);
+        }
+      });
     }
   });
 } catch (error) {

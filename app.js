@@ -79,7 +79,7 @@ const dashboard = new ParseDashboard(
   },
   {
     allowInsecureHTTP: true,
-  },
+  }
 );
 
 app.use(responseTime());

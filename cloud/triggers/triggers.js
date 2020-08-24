@@ -11,7 +11,7 @@ try {
       ParseCloudClass.configureClass(
         Parse,
         path.basename(file, path.extname(file)),
-        new ParseCloudClass(triggers)
+        ParseCloudClass.fromObject(triggers)
       );
     }
   });

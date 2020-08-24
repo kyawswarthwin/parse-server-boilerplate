@@ -8,7 +8,11 @@ try {
   fs.readdirSync(__dirname).forEach((file) => {
     if (path.extname(file).toLowerCase() === '.js' && file !== 'triggers.js') {
       const triggers = require(path.join(__dirname, file));
-      ParseCloudClass.configureClass(Parse, triggers.className, new ParseCloudClass(triggers));
+      ParseCloudClass.configureClass(
+        Parse,
+        path.basename(file, path.extname(file)),
+        new ParseCloudClass(triggers)
+      );
     }
   });
 } catch (error) {

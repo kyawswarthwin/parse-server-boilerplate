@@ -1,15 +1,16 @@
 import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';
 import { ParseServer } from 'parse-server';
+import { join } from 'path';
 
-import * as path from 'path';
 import * as compression from 'compression';
 import * as ParseDashboard from 'parse-dashboard';
 
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     cors: true,
   });
   const configService = app.get(ConfigService);
@@ -23,7 +24,7 @@ async function bootstrap() {
     },
     // Cloud Code
     serverURL: configService.get('SERVER_URL'),
-    cloud: path.join(__dirname, 'cloud/main.js'),
+    cloud: join(__dirname, 'cloud/main.js'),
     // Live Queries
     liveQuery: {
       classNames: [],
@@ -86,6 +87,8 @@ async function bootstrap() {
     },
   );
 
+  app.useStaticAssets(join(__dirname, '..', 'public'));
+  app.setViewEngine('html');
   app.use(compression());
   app.use(configService.get('PARSE_MOUNT'), api);
   app.use('/dashboard', dashboard);

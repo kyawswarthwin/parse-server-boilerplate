@@ -1,10 +1,6 @@
-'use strict';
-
 import * as fs from 'fs';
 import * as path from 'path';
 import { ParseCloudClass } from 'parse-server-addon-cloud-class';
-
-declare const Parse;
 
 try {
   fs.readdirSync(__dirname).forEach(async file => {

@@ -15,6 +15,7 @@ import configuration from './config/configuration';
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
+      exclude: [`${configuration().PARSE_MOUNT}*`],
     }),
   ],
   controllers: [AppController],

@@ -18,11 +18,11 @@ async function bootstrap() {
   const api = new ParseServer({
     appId: configService.get('APP_ID'),
     masterKey: configService.get('MASTER_KEY'),
-    databaseURI: configService.get('DATABASE_URI'),
     serverURL: configService.get('SERVER_URL'),
     serverStartComplete: () => {
       console.log(`Parse Server running at ${configService.get('SERVER_URL')}`);
     },
+    databaseURI: configService.get('DATABASE_URI'),
     // Cloud Code
     cloud: join(__dirname, 'cloud/main.js'),
     // Live Queries

@@ -14,16 +14,16 @@ async function bootstrap() {
     cors: true,
   });
   const configService = app.get(ConfigService);
-
+  // Parse Server
   const api = new ParseServer({
     appId: configService.get('APP_ID'),
     masterKey: configService.get('MASTER_KEY'),
     databaseURI: configService.get('DATABASE_URI'),
+    serverURL: configService.get('SERVER_URL'),
     serverStartComplete: () => {
       console.log(`Parse Server running at ${configService.get('SERVER_URL')}`);
     },
     // Cloud Code
-    serverURL: configService.get('SERVER_URL'),
     cloud: join(__dirname, 'cloud/main.js'),
     // Live Queries
     liveQuery: {
@@ -64,7 +64,7 @@ async function bootstrap() {
     allowClientClassCreation:
       process.env.NODE_ENV === 'production' ? false : true,
   });
-
+  // Parse Dashboard
   const dashboard = new ParseDashboard(
     {
       apps: [
@@ -89,6 +89,7 @@ async function bootstrap() {
 
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setViewEngine('html');
+
   app.use(compression());
   app.use(configService.get('PARSE_MOUNT'), api);
   app.use('/dashboard', dashboard);

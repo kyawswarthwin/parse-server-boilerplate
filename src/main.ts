@@ -3,12 +3,15 @@ import { ConfigService } from '@nestjs/config';
 import { ParseServer } from 'parse-server';
 
 import * as path from 'path';
+import * as compression from 'compression';
 import * as ParseDashboard from 'parse-dashboard';
 
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    cors: true,
+  });
   const configService = app.get(ConfigService);
 
   const api = new ParseServer({
@@ -83,6 +86,7 @@ async function bootstrap() {
     },
   );
 
+  app.use(compression());
   app.use(configService.get('PARSE_MOUNT'), api);
   app.use('/dashboard', dashboard);
 

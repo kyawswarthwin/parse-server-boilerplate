@@ -25,6 +25,7 @@
     "@nestjs/config": "^0.5.0",
     "@nestjs/core": "^7.0.0",
     "@nestjs/platform-express": "^7.0.0",
+    "compression": "^1.7.4",
     "parse-dashboard": "^2.1.0",
     "parse-server": "^4.3.0",
     "parse-server-addon-cloud-class": "^1.2.4",

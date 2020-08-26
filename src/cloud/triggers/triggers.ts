@@ -1,13 +1,32 @@
 import { readdirSync } from 'fs';
 import { extname, join } from 'path';
-import { ParseCloudClass } from 'parse-server-addon-cloud-class';
+
+export interface Trigger {
+  beforeFind(req: Parse.Cloud.BeforeFindRequest): void;
+
+  afterFind(req: Parse.Cloud.AfterFindRequest): void;
+
+  beforeSave(req: Parse.Cloud.BeforeSaveRequest): void;
+
+  afterSave(req: Parse.Cloud.AfterSaveRequest): void;
+
+  beforeDelete(req: Parse.Cloud.BeforeDeleteRequest): void;
+
+  afterDelete(req: Parse.Cloud.AfterDeleteRequest): void;
+}
 
 try {
   readdirSync(__dirname).forEach(async file => {
     if (extname(file).toLowerCase() === '.js' && file !== 'triggers.js') {
       const triggers = await import(join(__dirname, file));
       Object.keys(triggers).forEach(key => {
-        ParseCloudClass.configureClass(Parse, key, new triggers[key]());
+        const obj = new triggers[key]();
+        Parse.Cloud.beforeFind(key, obj.beforeFind);
+        Parse.Cloud.afterFind(key, obj.afterFind);
+        Parse.Cloud.beforeSave(key, obj.beforeSave);
+        Parse.Cloud.afterSave(key, obj.afterSave);
+        Parse.Cloud.beforeDelete(key, obj.beforeDelete);
+        Parse.Cloud.afterDelete(key, obj.afterDelete);
       });
     }
   });

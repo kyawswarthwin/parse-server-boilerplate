@@ -1,17 +1,27 @@
 import { readdirSync } from 'fs';
 import { extname, join } from 'path';
 
-export interface Trigger {
+export interface BeforeFindTrigger {
   beforeFind(req: Parse.Cloud.BeforeFindRequest): void;
+}
 
+export interface AfterFindTrigger {
   afterFind(req: Parse.Cloud.AfterFindRequest): void;
+}
 
+export interface BeforeSaveTrigger {
   beforeSave(req: Parse.Cloud.BeforeSaveRequest): void;
+}
 
+export interface AfterSaveTrigger {
   afterSave(req: Parse.Cloud.AfterSaveRequest): void;
+}
 
+export interface BeforeDeleteTrigger {
   beforeDelete(req: Parse.Cloud.BeforeDeleteRequest): void;
+}
 
+export interface AfterDeleteTrigger {
   afterDelete(req: Parse.Cloud.AfterDeleteRequest): void;
 }
 

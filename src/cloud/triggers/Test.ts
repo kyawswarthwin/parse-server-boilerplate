@@ -1,13 +1,7 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-import { Trigger, requireLogin } from './triggers';
+import { BeforeSaveTrigger, requireLogin } from './triggers';
 
-export class Test implements Trigger {
-  beforeFind(req: Parse.Cloud.BeforeFindRequest): void {}
-  afterFind(req: Parse.Cloud.AfterFindRequest): void {}
+export class Test implements BeforeSaveTrigger {
   beforeSave(req: Parse.Cloud.BeforeSaveRequest): void {
-    requireLogin(req, true);
+    requireLogin(req);
   }
-  afterSave(req: Parse.Cloud.AfterSaveRequest): void {}
-  beforeDelete(req: Parse.Cloud.BeforeDeleteRequest): void {}
-  afterDelete(req: Parse.Cloud.AfterDeleteRequest): void {}
 }

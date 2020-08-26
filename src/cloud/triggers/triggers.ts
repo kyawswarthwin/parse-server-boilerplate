@@ -1,11 +1,11 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import { readdirSync } from 'fs';
+import { extname, join } from 'path';
 import { ParseCloudClass } from 'parse-server-addon-cloud-class';
 
 try {
-  fs.readdirSync(__dirname).forEach(async file => {
-    if (path.extname(file).toLowerCase() === '.js' && file !== 'triggers.js') {
-      const triggers = await import(path.join(__dirname, file));
+  readdirSync(__dirname).forEach(async file => {
+    if (extname(file).toLowerCase() === '.js' && file !== 'triggers.js') {
+      const triggers = await import(join(__dirname, file));
       Object.keys(triggers).forEach(key => {
         ParseCloudClass.configureClass(Parse, key, new triggers[key]());
       });

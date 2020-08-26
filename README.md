@@ -1,66 +1,75 @@
-## Dokku + Let's Encrypt + Parse Server သွင်းနည်း
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
+</p>
 
-**၁) အောက်ပါ Command များကို ရိုက်ပြီး၊ ဤ [Link](http://dokku.viewdocs.io/dokku/) တွင် ဖော်ပြထားသည့်အတိုင်း Dokku ကို သွင်းပါ။**
+[travis-image]: https://api.travis-ci.org/nestjs/nest.svg?branch=master
+[travis-url]: https://travis-ci.org/nestjs/nest
+[linux-image]: https://img.shields.io/travis/nestjs/nest/master.svg?label=linux
+[linux-url]: https://travis-ci.org/nestjs/nest
+  
+  <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
+<a href="https://travis-ci.org/nestjs/nest"><img src="https://api.travis-ci.org/nestjs/nest.svg?branch=master" alt="Travis" /></a>
+<a href="https://travis-ci.org/nestjs/nest"><img src="https://img.shields.io/travis/nestjs/nest/master.svg?label=linux" alt="Linux" /></a>
+<a href="https://coveralls.io/github/nestjs/nest?branch=master"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#5" alt="Coverage" /></a>
+<a href="https://gitter.im/nestjs/nestjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge"><img src="https://badges.gitter.im/nestjs/nestjs.svg" alt="Gitter" /></a>
+<a href="https://opencollective.com/nest#backer"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec"><img src="https://img.shields.io/badge/Donate-PayPal-dc3d53.svg"/></a>
+  <a href="https://twitter.com/nestframework"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-```sh
-$ sudo add-apt-repository ppa:nginx/stable
-$ sudo apt-get update
+## Description
+
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+
+## Installation
+
+```bash
+$ npm install
 ```
 
-**၂) App အသစ်ဖန်တီးရန် အောက်ပါ Command ကို ရိုက်ပါ။**
+## Running the app
 
-```sh
-$ dokku apps:create parse-server-boilerplate
+```bash
+# development
+$ npm run start
+
+# watch mode
+$ npm run start:dev
+
+# production mode
+$ npm run start:prod
 ```
 
-**၃) MongoDB သွင်းရန် အောက်ပါ Command ကို ရိုက်ပါ။**
+## Test
 
-```sh
-$ sudo dokku plugin:install https://github.com/dokku/dokku-mongo.git mongo
+```bash
+# unit tests
+$ npm run test
+
+# e2e tests
+$ npm run test:e2e
+
+# test coverage
+$ npm run test:cov
 ```
 
-**၄) MongoDB Database အသစ် ဖန်တီးပြီး၊ App ဖြင့် ချိတ်ဆက်ရန် အောက်ပါ Command များကို ရိုက်ပါ။**
+## Support
 
-```sh
-$ dokku mongo:create parse-server-boilerplate-database
-$ dokku mongo:link parse-server-boilerplate-database parse-server-boilerplate
-```
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-**၅) Environment Variable များ သတ်မှတ်ရန် အောက်ပါ Command များကို ရိုက်ပါ။**
+## Stay in touch
 
-```sh
-$ dokku config:set parse-server-boilerplate APP_ID=your_app_id MASTER_KEY=your_master_key SERVER_URL=https://www.parse-server-boilerplate.com/parse
-$ dokku config:set parse-server-boilerplate S3_BUCKET=parse-server-boilerplate AWS_ACCESS_KEY_ID=your_aws_access_key_id AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
-$ dokku config:set parse-server-boilerplate MAILGUN_API_KEY=your_mailgun_api_key MAILGUN_DOMAIN=mg.parse-server-boilerplate.com
-```
+- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
 
-**၆) Deploy လုပ်ရန် အောက်ပါ Command များကို ရိုက်ပါ။**
+## License
 
-```sh
-$ git remote add dokku dokku@parse-server-boilerplate.com:parse-server-boilerplate
-$ git push dokku master
-```
-
-**၇) App နှင့် Domain ချိတ်ဆက်ရန် အောက်ပါ Command ကို ရိုက်ပြီး၊ သက်ဆိုင်ရာ A Record များအား သင့် Server ၏ Public IP သို့ ညွှန်ပြပါ။**
-
-```sh
-$ dokku domains:add parse-server-boilerplate parse-server-boilerplate.com www.parse-server-boilerplate.com
-```
-
-**၈) Let's Encrypt သွင်းရန် အောက်ပါ Command များကို ရိုက်ပါ။**
-
-```sh
-$ sudo dokku plugin:install https://github.com/dokku/dokku-letsencrypt.git
-$ dokku letsencrypt:cron-job --add
-```
-
-**၉) Let's Encrypt နှင့် App ချိတ်ဆက်ရန် အောက်ပါ Command များကို ရိုက်ပါ။**
-
-```sh
-$ dokku config:set --no-restart parse-server-boilerplate DOKKU_LETSENCRYPT_EMAIL=admin@parse-server-boilerplate.com
-$ dokku letsencrypt parse-server-boilerplate
-```
-
----
-
-ရေးသားသူ - [ကျော်စွာသွင်](https://www.facebook.com/profile.php?id=100005753280868)
+  Nest is [MIT licensed](LICENSE).

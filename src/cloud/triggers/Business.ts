@@ -5,6 +5,9 @@ export class Business implements BeforeSaveTrigger, AfterSaveTrigger {
     requireLogin(req);
 
     const business = req.object;
+    if (business.existed()) {
+      return;
+    }
 
     const acl = new Parse.ACL();
     acl.setPublicReadAccess(true);
@@ -16,6 +19,9 @@ export class Business implements BeforeSaveTrigger, AfterSaveTrigger {
 
   async afterSave(req: Parse.Cloud.BeforeSaveRequest): Promise<void> {
     const business = req.object;
+    if (business.existed()) {
+      return;
+    }
 
     const acl = new Parse.ACL();
     acl.setPublicReadAccess(true);

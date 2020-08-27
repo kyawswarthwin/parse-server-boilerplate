@@ -1,4 +1,5 @@
-import { BeforeSaveTrigger, requireLogin, AfterSaveTrigger } from './triggers';
+import { BeforeSaveTrigger, AfterSaveTrigger } from './triggers';
+import { requireLogin } from '../utils/common';
 
 export class Business implements BeforeSaveTrigger, AfterSaveTrigger {
   beforeSave(req: Parse.Cloud.BeforeSaveRequest): void {

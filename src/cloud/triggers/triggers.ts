@@ -25,17 +25,6 @@ export interface AfterDeleteTrigger {
   afterDelete(req: Parse.Cloud.AfterDeleteRequest): void | Promise<void>;
 }
 
-export function requireLogin(
-  req:
-    | Parse.Cloud.BeforeFindRequest
-    | Parse.Cloud.BeforeSaveRequest
-    | Parse.Cloud.BeforeDeleteRequest,
-) {
-  if (!req.user && !req.master) {
-    throw new Parse.Error(Parse.Error.SESSION_MISSING, 'Insufficient auth.');
-  }
-}
-
 try {
   readdirSync(__dirname).forEach(async file => {
     if (extname(file).toLowerCase() === '.js' && file !== 'triggers.js') {

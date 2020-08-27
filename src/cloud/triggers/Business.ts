@@ -9,10 +9,6 @@ export class Business implements BeforeSaveTrigger, AfterSaveTrigger {
       return;
     }
 
-    const acl = new Parse.ACL();
-    acl.setPublicReadAccess(true);
-    business.setACL(acl);
-
     const relation = business.relation('users');
     relation.add(req.user);
   }
@@ -23,15 +19,26 @@ export class Business implements BeforeSaveTrigger, AfterSaveTrigger {
       return;
     }
 
-    const acl = new Parse.ACL();
-    acl.setPublicReadAccess(true);
+    const roleACL = new Parse.ACL();
+    roleACL.setPublicReadAccess(true);
 
-    const adminRole = new Parse.Role(`${business.id}_admin`, acl);
+    const adminRole = new Parse.Role(`${business.id}_admin`, roleACL);
     adminRole.getUsers().add(req.user);
     await adminRole.save();
 
-    const operatorRole = new Parse.Role(`${business.id}_operator`, acl);
+    const operatorRole = new Parse.Role(`${business.id}_operator`, roleACL);
     operatorRole.getRoles().add(adminRole);
     await operatorRole.save();
+
+    const businessACL = new Parse.ACL();
+    businessACL.setPublicReadAccess(true);
+    businessACL.setRoleWriteAccess(adminRole, true);
+    business.setACL(businessACL);
+    await business.save(
+      {},
+      {
+        useMasterKey: true,
+      },
+    );
   }
 }

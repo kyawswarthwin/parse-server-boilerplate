@@ -31,7 +31,7 @@ export function requireLogin(
     | Parse.Cloud.BeforeSaveRequest
     | Parse.Cloud.BeforeDeleteRequest,
 ) {
-  if (!req.user) {
+  if (!req.user && !req.master) {
     throw new Parse.Error(Parse.Error.SESSION_MISSING, 'Insufficient auth.');
   }
 }

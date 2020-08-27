@@ -20,7 +20,8 @@ export class Business implements BeforeSaveTrigger, AfterSaveTrigger {
     }
 
     const roleACL = new Parse.ACL();
-    roleACL.setPublicReadAccess(true);
+    roleACL.setRoleReadAccess(`${object.id}_admin`, true);
+    roleACL.setRoleWriteAccess(`${object.id}_admin`, true);
 
     const adminRole = new Parse.Role(`${object.id}_admin`, roleACL);
     adminRole.getUsers().add(user);
@@ -32,7 +33,7 @@ export class Business implements BeforeSaveTrigger, AfterSaveTrigger {
 
     const businessACL = new Parse.ACL();
     businessACL.setPublicReadAccess(true);
-    businessACL.setRoleWriteAccess(adminRole, true);
+    businessACL.setRoleWriteAccess(`${object.id}_admin`, true);
     object.setACL(businessACL);
     await object.save(
       {},

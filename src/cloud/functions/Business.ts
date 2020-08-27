@@ -15,11 +15,42 @@ export async function getUserBusinesses(req) {
 }
 
 export async function assignBusinessRole(req) {
-  const { business, user, role } = req.params;
+  const { businessId, userId, roleId } = req.params;
 
-  return {
-    business,
-    user,
-    role,
-  };
+  const Business = Parse.Object.extend('Business');
+  const business = new Business();
+  business.id = businessId;
+  await business.fetch({
+    useMasterKey: true,
+  });
+
+  const User = Parse.Object.extend('_User');
+  const user = new User();
+  user.id = userId;
+  await user.fetch({
+    useMasterKey: true,
+  });
+
+  const Role = Parse.Object.extend('_Role');
+  const role = new Role();
+  role.id = roleId;
+  await role.fetch({
+    useMasterKey: true,
+  });
+
+  business.relation('users').add(user);
+  await business.save(
+    {},
+    {
+      useMasterKey: true,
+    },
+  );
+
+  role.relation('users').add(user);
+  await role.save(
+    {},
+    {
+      useMasterKey: true,
+    },
+  );
 }

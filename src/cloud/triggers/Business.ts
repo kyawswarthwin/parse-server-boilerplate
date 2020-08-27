@@ -25,10 +25,12 @@ export class Business implements BeforeSaveTrigger, AfterSaveTrigger {
 
     const adminRole = new Parse.Role(`${object.id}_admin`, roleACL);
     adminRole.getUsers().add(user);
+    adminRole.set('business', object);
     await adminRole.save();
 
     const operatorRole = new Parse.Role(`${object.id}_operator`, roleACL);
     operatorRole.getRoles().add(adminRole);
+    operatorRole.set('business', object);
     await operatorRole.save();
 
     const businessACL = new Parse.ACL();

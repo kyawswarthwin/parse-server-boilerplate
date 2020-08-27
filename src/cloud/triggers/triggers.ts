@@ -2,27 +2,27 @@ import { readdirSync } from 'fs';
 import { extname, join } from 'path';
 
 export interface BeforeFindTrigger {
-  beforeFind(req: Parse.Cloud.BeforeFindRequest): void;
+  beforeFind(req: Parse.Cloud.BeforeFindRequest): void | Promise<void>;
 }
 
 export interface AfterFindTrigger {
-  afterFind(req: Parse.Cloud.AfterFindRequest): void;
+  afterFind(req: Parse.Cloud.AfterFindRequest): void | Promise<void>;
 }
 
 export interface BeforeSaveTrigger {
-  beforeSave(req: Parse.Cloud.BeforeSaveRequest): void;
+  beforeSave(req: Parse.Cloud.BeforeSaveRequest): void | Promise<void>;
 }
 
 export interface AfterSaveTrigger {
-  afterSave(req: Parse.Cloud.AfterSaveRequest): void;
+  afterSave(req: Parse.Cloud.AfterSaveRequest): void | Promise<void>;
 }
 
 export interface BeforeDeleteTrigger {
-  beforeDelete(req: Parse.Cloud.BeforeDeleteRequest): void;
+  beforeDelete(req: Parse.Cloud.BeforeDeleteRequest): void | Promise<void>;
 }
 
 export interface AfterDeleteTrigger {
-  afterDelete(req: Parse.Cloud.AfterDeleteRequest): void;
+  afterDelete(req: Parse.Cloud.AfterDeleteRequest): void | Promise<void>;
 }
 
 export function requireLogin(

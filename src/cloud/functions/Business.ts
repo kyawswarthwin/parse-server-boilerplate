@@ -13,3 +13,13 @@ export async function getUserBusinesses(req) {
 
   return businesses;
 }
+
+export async function assignBusinessRole(req) {
+  const { business, user, role } = req.params;
+
+  return {
+    business,
+    user,
+    role,
+  };
+}

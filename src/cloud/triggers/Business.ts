@@ -3,17 +3,9 @@ import { BeforeSaveTrigger, requireLogin, AfterSaveTrigger } from './triggers';
 export class Business implements BeforeSaveTrigger, AfterSaveTrigger {
   beforeSave(req: Parse.Cloud.BeforeSaveRequest): void {
     requireLogin(req);
-
-    const { user, object } = req;
-    if (object.existed()) {
-      return;
-    }
-
-    const relation = object.relation('users');
-    relation.add(user);
   }
 
-  async afterSave(req: Parse.Cloud.BeforeSaveRequest): Promise<void> {
+  async afterSave(req: Parse.Cloud.AfterSaveRequest): Promise<void> {
     const { user, object } = req;
     if (object.existed()) {
       return;

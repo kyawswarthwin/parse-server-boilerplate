@@ -1,117 +1,15 @@
-import { requireLogin } from '../utils/common';
+export async function getBusinessRoles(req) {
+  const { businessId } = req.params;
 
-export async function getUserBusinesses(req) {
-  requireLogin(req);
+  const Business = Parse.Object.extend('Business');
+  const business = new Business();
+  business.id = businessId;
 
   const roles = await new Parse.Query(Parse.Role)
-    .equalTo('users', req.user)
-    .include('business')
+    .equalTo('business', business)
     .find({
       useMasterKey: true,
     });
-  const businesses = roles.map(role => role.get('business'));
 
-  return businesses;
-}
-
-export async function assignBusinessRole(req) {
-  const { businessId, userId, roleId } = req.params;
-
-  const Business = Parse.Object.extend('Business');
-  const business = new Business();
-  business.id = businessId;
-  await business.fetch({
-    useMasterKey: true,
-  });
-
-  const User = Parse.Object.extend('_User');
-  const user = new User();
-  user.id = userId;
-  await user.fetch({
-    useMasterKey: true,
-  });
-
-  const Role = Parse.Object.extend('_Role');
-  const role = new Role();
-  role.id = roleId;
-  await role.fetch({
-    useMasterKey: true,
-  });
-
-  business.relation('users').add(user);
-  await business.save(
-    {},
-    {
-      useMasterKey: true,
-    },
-  );
-
-  role.relation('users').add(user);
-  await role.save(
-    {},
-    {
-      useMasterKey: true,
-    },
-  );
-}
-
-export async function deleteBusinessRole(req) {
-  const { businessId, userId, roleId } = req.params;
-
-  const Business = Parse.Object.extend('Business');
-  const business = new Business();
-  business.id = businessId;
-  await business.fetch({
-    useMasterKey: true,
-  });
-
-  const User = Parse.Object.extend('_User');
-  const user = new User();
-  user.id = userId;
-  await user.fetch({
-    useMasterKey: true,
-  });
-
-  const Role = Parse.Object.extend('_Role');
-  const role = new Role();
-  role.id = roleId;
-  await role.fetch({
-    useMasterKey: true,
-  });
-
-  business.relation('users').remove(user);
-  await business.save(
-    {},
-    {
-      useMasterKey: true,
-    },
-  );
-
-  role.relation('users').remove(user);
-  await role.save(
-    {},
-    {
-      useMasterKey: true,
-    },
-  );
-}
-
-export async function updateBusinessRole(req) {
-  const { businessId, userId, oldRoleId, newRoleId } = req.params;
-
-  await deleteBusinessRole({
-    params: {
-      businessId,
-      userId,
-      roleId: oldRoleId,
-    },
-  });
-
-  await assignBusinessRole({
-    params: {
-      businessId,
-      userId,
-      roleId: newRoleId,
-    },
-  });
+  return roles;
 }

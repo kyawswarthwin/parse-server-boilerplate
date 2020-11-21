@@ -1,7 +1,13 @@
-import { BeforeSaveTrigger, AfterSaveTrigger } from './triggers';
+import {
+  BeforeSaveTrigger,
+  AfterSaveTrigger,
+  AfterDeleteTrigger,
+} from './triggers';
 import { requireLogin } from '../utils/common';
+import { getBusinessRoles } from '../functions/Business';
 
-export class Business implements BeforeSaveTrigger, AfterSaveTrigger {
+export class Business
+  implements BeforeSaveTrigger, AfterSaveTrigger, AfterDeleteTrigger {
   beforeSave(req: Parse.Cloud.BeforeSaveRequest): void {
     requireLogin(req);
 
@@ -20,29 +26,41 @@ export class Business implements BeforeSaveTrigger, AfterSaveTrigger {
       return;
     }
 
-    const roleACL = new Parse.ACL();
-    roleACL.setRoleReadAccess(`${object.id}_admin`, true);
-    roleACL.setRoleWriteAccess(`${object.id}_admin`, true);
+    const acl = new Parse.ACL();
+    acl.setRoleReadAccess(`${object.id}_admin`, true);
+    acl.setRoleWriteAccess(`${object.id}_admin`, true);
 
-    const adminRole = new Parse.Role(`${object.id}_admin`, roleACL);
+    const adminRole = new Parse.Role(`${object.id}_admin`, acl);
     adminRole.getUsers().add(user);
     adminRole.set('business', object);
     await adminRole.save();
 
-    const operatorRole = new Parse.Role(`${object.id}_operator`, roleACL);
+    const operatorRole = new Parse.Role(`${object.id}_operator`, acl);
     operatorRole.getRoles().add(adminRole);
     operatorRole.set('business', object);
     await operatorRole.save();
 
-    const businessACL = new Parse.ACL();
-    businessACL.setPublicReadAccess(true);
-    businessACL.setRoleWriteAccess(`${object.id}_admin`, true);
-    object.setACL(businessACL);
+    object.setACL(acl);
     await object.save(
       {},
       {
         useMasterKey: true,
       },
+    );
+  }
+
+  async afterDelete(req: Parse.Cloud.AfterDeleteRequest): Promise<void> {
+    const roles = await getBusinessRoles({
+      params: {
+        businessId: req.object.id,
+      },
+    });
+    Promise.all(
+      roles.map(async role => {
+        await role.destroy({
+          useMasterKey: true,
+        });
+      }),
     );
   }
 }

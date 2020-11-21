@@ -8,3 +8,32 @@ export function requireLogin(
     throw new Parse.Error(Parse.Error.SESSION_MISSING, 'Insufficient auth.');
   }
 }
+
+export async function uniqueKeys(
+  req:
+    | Parse.Cloud.BeforeFindRequest
+    | Parse.Cloud.BeforeSaveRequest
+    | Parse.Cloud.BeforeDeleteRequest,
+  keys: string[],
+) {
+  if (req.object.existed()) {
+    return;
+  }
+
+  const queries = keys.map(key => {
+    return new Parse.Query(req.object.className).equalTo(
+      key,
+      req.object.get(key),
+    );
+  });
+  const query = Parse.Query.or(...queries);
+  const count = await query.count({
+    useMasterKey: true,
+  });
+  if (count > 0) {
+    throw new Parse.Error(
+      Parse.Error.DUPLICATE_VALUE,
+      'A duplicate value for a field with unique values was provided.',
+    );
+  }
+}

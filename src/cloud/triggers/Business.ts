@@ -3,13 +3,14 @@ import {
   AfterSaveTrigger,
   AfterDeleteTrigger,
 } from './triggers';
-import { requireLogin } from '../utils/common';
+import { requireLogin, uniqueKeys } from '../utils/common';
 import { getBusinessRoles } from '../functions/Business';
 
 export class Business
   implements BeforeSaveTrigger, AfterSaveTrigger, AfterDeleteTrigger {
-  beforeSave(req: Parse.Cloud.BeforeSaveRequest): void {
+  async beforeSave(req: Parse.Cloud.BeforeSaveRequest): Promise<void> {
     requireLogin(req);
+    await uniqueKeys(req, ['pageId']);
 
     const { user, object } = req;
     if (object.existed()) {

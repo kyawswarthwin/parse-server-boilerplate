@@ -11,14 +11,6 @@ export class Business
   async beforeSave(req: Parse.Cloud.BeforeSaveRequest): Promise<void> {
     requireLogin(req);
     await uniqueKeys(req, ['pageId']);
-
-    const { user, object } = req;
-    if (object.existed()) {
-      return;
-    }
-
-    const relation = object.relation('users');
-    relation.add(user);
   }
 
   async afterSave(req: Parse.Cloud.AfterSaveRequest): Promise<void> {

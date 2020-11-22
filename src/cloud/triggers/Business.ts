@@ -4,7 +4,6 @@ import {
   AfterDeleteTrigger,
 } from './triggers';
 import { requireLogin, uniqueKeys } from '../utils/common';
-import { getBusinessRoles } from '../functions/Business';
 
 export class Business
   implements BeforeSaveTrigger, AfterSaveTrigger, AfterDeleteTrigger {
@@ -43,10 +42,10 @@ export class Business
   }
 
   async afterDelete(req: Parse.Cloud.AfterDeleteRequest): Promise<void> {
-    const roles = await getBusinessRoles({
-      params: {
-        businessId: req.object.id,
-      },
+    const query = new Parse.Query(Parse.Role);
+    query.equalTo('business', req.object);
+    const roles = await query.find({
+      useMasterKey: true,
     });
     Promise.all(
       roles.map(async role => {

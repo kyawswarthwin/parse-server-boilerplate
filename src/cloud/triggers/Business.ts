@@ -18,24 +18,23 @@ export class Business
       return;
     }
 
-    const roleACL = new Parse.ACL();
-    roleACL.setRoleReadAccess(`${object.id}_admin`, true);
-    roleACL.setRoleWriteAccess(`${object.id}_admin`, true);
-
-    const adminRole = new Parse.Role(`${object.id}_admin`, roleACL);
+    const adminACL = new Parse.ACL();
+    adminACL.setRoleReadAccess(`${object.id}_admin`, true);
+    adminACL.setRoleWriteAccess(`${object.id}_admin`, true);
+    const adminRole = new Parse.Role(`${object.id}_admin`, adminACL);
     adminRole.getUsers().add(user);
     adminRole.set('business', object);
     await adminRole.save();
 
-    const operatorRole = new Parse.Role(`${object.id}_operator`, roleACL);
+    const operatorACL = new Parse.ACL();
+    operatorACL.setRoleReadAccess(`${object.id}_operator`, true);
+    operatorACL.setRoleWriteAccess(`${object.id}_admin`, true);
+    const operatorRole = new Parse.Role(`${object.id}_operator`, operatorACL);
     operatorRole.getRoles().add(adminRole);
     operatorRole.set('business', object);
     await operatorRole.save();
 
-    const businessACL = new Parse.ACL();
-    businessACL.setRoleReadAccess(`${object.id}_operator`, true);
-    businessACL.setRoleWriteAccess(`${object.id}_admin`, true);
-    object.setACL(businessACL);
+    object.setACL(operatorACL);
     await object.save(
       {},
       {

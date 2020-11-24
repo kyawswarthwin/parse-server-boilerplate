@@ -27,6 +27,7 @@ export class Business
     await adminRole.save();
 
     const operatorACL = new Parse.ACL();
+    operatorACL.setRoleReadAccess(`${object.id}_admin`, true);
     operatorACL.setRoleReadAccess(`${object.id}_operator`, true);
     operatorACL.setRoleWriteAccess(`${object.id}_admin`, true);
     const operatorRole = new Parse.Role(`${object.id}_operator`, operatorACL);

@@ -16,15 +16,14 @@ export async function uniqueKeys(
     | Parse.Cloud.BeforeDeleteRequest,
   keys: string[],
 ) {
-  if (req.object.existed()) {
+  const { object } = req;
+
+  if (object.existed()) {
     return;
   }
 
   const queries = keys.map(key => {
-    return new Parse.Query(req.object.className).equalTo(
-      key,
-      req.object.get(key),
-    );
+    return new Parse.Query(object.className).equalTo(key, object.get(key));
   });
   const query = Parse.Query.or(...queries);
   const count = await query.count({

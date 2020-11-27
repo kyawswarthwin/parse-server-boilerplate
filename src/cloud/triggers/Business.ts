@@ -14,6 +14,7 @@ export class Business
 
   async afterSave(req: Parse.Cloud.AfterSaveRequest): Promise<void> {
     const { user, object } = req;
+
     if (object.existed()) {
       return;
     }

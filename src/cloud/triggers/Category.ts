@@ -10,9 +10,9 @@ export class Category implements BeforeSaveTrigger {
 
     await uniqueKeys(req, ['name']);
 
-    const ACL = new Parse.ACL();
-    ACL.setPublicReadAccess(true);
-    ACL.setPublicWriteAccess(false);
-    object.setACL(ACL);
+    const acl = new Parse.ACL();
+    acl.setPublicReadAccess(true);
+    acl.setPublicWriteAccess(false);
+    object.setACL(acl);
   }
 }

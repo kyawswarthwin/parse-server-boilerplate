@@ -51,7 +51,7 @@ export async function nearby(req) {
       city: business.get('city'),
       postalCode: business.get('postalCode'),
       country: business.get('country'),
-      location:
+      distance:
         unit === 'km'
           ? business
               .get('location')

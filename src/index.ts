@@ -28,7 +28,7 @@ import path from 'path';
     const parseServer = new ParseServer({
       appId: APP_ID,
       masterKey: MASTER_KEY,
-      masterKeyIps: ['0.0.0.0/0'],
+      masterKeyIps: ['0.0.0.0/0', '::/0'],
       databaseURI: DATABASE_URI,
       port: PORT,
       cloud: path.join(__dirname, 'cloud', 'main'),
